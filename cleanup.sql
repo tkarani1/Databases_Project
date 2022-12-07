@@ -1,0 +1,11 @@
+-- Name: Trisha Karani
+-- JHEDID: tkarani1
+
+DROP TABLE IF EXISTS AlbumReleases; 
+DROP TABLE IF EXISTS SongReleases; 
+DROP TABLE IF EXISTS AlbumTracks; 
+DROP TABLE IF EXISTS Artist; 
+DROP TABLE IF EXISTS SpotifyChart;
+DROP TABLE IF EXISTS Song; 
+DROP TABLE IF EXISTS Album; 
+DROP TABLE IF EXISTS CountryHappiness; 
