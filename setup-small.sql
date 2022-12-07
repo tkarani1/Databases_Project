@@ -1,14 +1,15 @@
 -- Name: Trisha Karani
 -- JHEDID: tkarani1
 
-DROP TABLE IF EXISTS Artist; 
-DROP TABLE IF EXISTS Song; 
-DROP TABLE IF EXISTS Album; 
 DROP TABLE IF EXISTS AlbumReleases; 
 DROP TABLE IF EXISTS SongReleases; 
 DROP TABLE IF EXISTS AlbumTracks; 
+DROP TABLE IF EXISTS Artist; 
+DROP TABLE IF EXISTS SpotifyChart;
+DROP TABLE IF EXISTS Song; 
+DROP TABLE IF EXISTS Album; 
 DROP TABLE IF EXISTS CountryHappiness; 
-DROP TABLE IF EXISTS SpotifyChart; 
+ 
 
 CREATE OR REPLACE TABLE Artist (
     artistID VARCHAR(100),
@@ -61,7 +62,7 @@ CREATE OR REPLACE TABLE SongReleases (
     songType VARCHAR(50), 
     numArtists INT, 
     PRIMARY KEY(songID, artistID),
-    FOREIGN KEY(songID) REFERENCES Song(songID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(songID) REFERENCES Song(songID) ON DELETE CASCADE ON UPDATE CASCADE, 
     FOREIGN KEY(artistID) REFERENCES Artist(artistID) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
 
@@ -88,12 +89,12 @@ CREATE OR REPLACE TABLE SpotifyChart (
     country VARCHAR(50), 
     startDate DATETIME, 
     endDate DATETIME, 
-    position INT, 
+    pos INT, 
     songID VARCHAR(100), 
     numStreams INT,
-    PRIMARY KEY(country, startDate, position), 
+    PRIMARY KEY(country, startDate, pos), 
     FOREIGN KEY(songID) REFERENCES Song(songID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(country) REFERENCES CountryHappiness(country) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(country) REFERENCES CountryHappiness(country) ON DELETE CASCADE ON UPDATE CASCADE,
     CHECK(startDate < endDate)
 );
 
