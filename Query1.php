@@ -41,7 +41,7 @@ if (empty($this_country)) {
       //the variables that follow: 's' means string, 'i' means integer, 'd' means
       //double. E.g., for a statment with 3 ?'s, where middle parameter is an integer
       //and the other two are strings, the first argument included should be "sis".
-      $stmt->bind_param("s s s", $this_year, $this_year, $this_country);
+      $stmt->bind_param("sss", $this_year, $this_year, $this_country);
 
       //Run the actual query
       if ($stmt->execute()) {
@@ -53,7 +53,7 @@ if (empty($this_country)) {
 	 
             //Create table to display results
             echo "<table border=\"1px solid black\">";
-            echo "<tr><th> Song Name </th> <th> Family </th> </tr>";
+            echo "<tr><th> Song Name </th> </tr>";
 
             //Report result set by visiting each row in it
             while ($row = $result->fetch_row()) {

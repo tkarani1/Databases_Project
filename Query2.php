@@ -38,14 +38,13 @@ if ($stmt = $conn->prepare(
    
          //Create table to display results
          echo "<table border=\"1px solid black\">";
-         echo "<tr><th> State </th> <th> Percent of Explicit Songs </th></tr>";
+         echo "<tr><th> Percent of Explicit Songs </th></tr>";
 
          //Report result set by visiting each row in it
          while ($row = $result->fetch_row()) {
             echo "<tr>";
-            // echo "<td>".$row[0]."</td>";
+            echo "<td>".$row[0]."</td>";
             echo "<td>".$row[1]."</td>";
-            // echo "<td>".$row[2]."</td>";
             echo "</tr>";
          } 
       
