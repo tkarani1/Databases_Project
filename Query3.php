@@ -17,9 +17,8 @@
        // call the stored procedure we already defined on dbase
 	$result = $conn->query("CALL Query3('".$item."');");
 
-	    if (($result) && ($result->num_rows > 1)) {
+	    if (($result) && ($result->num_rows != 0)) {
 	      echo "<table border=\"2px solid black\">";
-
           // output a row of table headers
 	      echo "<tr>";
 	      // collect an array holding all attribute names in $result

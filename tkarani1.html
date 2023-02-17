@@ -1,18 +1,151 @@
-
 <html>
     <body>
      <h1>Top Charting Songs in the World</h1>
      <br><br>
-     <h2> What top charting song had the most streams in a [country] in the [year]?</h2>
+     <h2> 1. What top charting song had the most streams in a certain country in a certain year?</h2>
      <form action="Query1.php" method="post">
          Country: <input type="text" name="this_country">
          Year: <input type="text" name="this_year">
          <input type="submit">
      </form>
      <br/><br/>
- 
 
- 
+    <h2> 2. What percent of top charting songs are explicit?</h2>
+	<form action="Query2.php">
+		<input type="submit" value="Go">
+	</form>
+	<br/><br/>
+
+     <h2> 3. What are the average metrics for songs by artists of a certain genre?</h2>
+    <h4> Try genres: pop, hip hop, rap, country, rock, etc. </h4>
+     <form action="Query3.php" method="post">
+         Genre: <input type="text" name="this_genre">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+     <h2> 4. What top charting songs include a certain word?</h2>
+    <h4> Try words like: love, etc. </h4>
+     <form action="Query4.php" method="post">
+         Word: <input type="text" name="item">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+     <h2> 5. Which songs by a certain artist include a certain word?</h2> 
+     <form action="Query5.php" method="post">
+         Artist Name: <input type="text" name="this_artist">
+         Word: <input type="text" name="this_word">
+         <input type="submit">
+     </form>
+     <br/><br/>   
+
+    <h2> 6. What albums had more than one song in the top 10 of the charts</h2>
+        <form action="Query6.php">
+                <input type="submit" value="Go">
+        </form>
+        <br/><br/> 
+
+    <h2> 7. Which artists had collaborations on the charts?</h2>
+        <form action="Query7.php">
+                <input type="submit" value="Go">
+        </form>
+        <br/><br/>
+
+    <h2> 8. What was the minimum number of streams for a song to be #1 in each country in each year?</h2>
+        <form action="Query8.php">
+                <input type="submit" value="Go">
+        </form>
+        <br/><br/>
+
+    <h2> 9. How is danceability of the top 10 songs affected by the happiness score in each country?</h2>
+        <form action="Query9.php">
+                <input type="submit" value="Go">
+        </form>
+        <br/><br/>
+
+    <h2> 10. How does GDP affect the number of top songs about money? </h2>
+        <form action="Query10.php">
+                <input type="submit" value="Go">
+        </form>
+        <br/><br/>
+
+    <h2> 11. How long after a certain song by a certain artist was released did it appear on the charts?</h2>
+     <form action="Query11.php" method="post">
+         Song Name: <input type="text" name="this_song">
+         Artist Name: <input type="text" name="this_artist">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> 12. What was the minimum number of followers in each country for an artist to chart in a certain year? </h2>
+     <form action="Query12.php" method="post">
+         Year: <input type="text" name="this_year">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> 13. Top genre in every country between two dates? </h2>
+    <h4> Write dates as YYYY-MM </h4>
+     <form action="Query13.php" method="post">
+         Start date: <input type="text" name="item1">
+         End date: <input type="text" name="item2">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> 14. How many weeks was a song by an artist on the chart in each country? </h2>
+     <form action="Query14.php" method="post">
+         Song Name: <input type="text" name="item1">
+         Artist Name: <input type="text" name="item2">
+         <input type="submit">
+     </form>
+     <br/><br/>
+    
+    <h2> 15. How many unique songs in a specific country in a certain month and year? </h2>
+    <h4> Write date as YYYY-MM </h4>
+     <form action="Query15.php" method="post">
+         YYYY-MM: <input type="text" name="item1">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+
+    <h2> Insert into the SongReleases table if the songID already exists </h2>
+     <form action="Insertion1.php" method="post">
+         songID: <input type="text" name="item1">
+         artistID: <input type="text" name="item2">
+         Song Type: <input type="text" name="item3">
+         Number of artists: <input type="number" name="item4">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> Insert into the SongReleases table if the songID does not exists </h2>
+     <form action="Insertion2.php" method="post">
+         songID: <input type="text" name="item1">
+         artistID: <input type="text" name="item2">
+         Song Type: <input type="text" name="item3">
+         Number of artists: <input type="number" name="item4">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> Delete all country happiness data </h2>
+     <form action="Deletion1.php" method="post">
+         country: <input type="text" name="item">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
+    <h2> Delete Album Track data </h2>
+     <form action="Deletion2.php" method="post">
+         songID: <input type="text" name="item1">
+         albumID: <input type="text" name="item2">
+         <input type="submit">
+     </form>
+     <br/><br/>
+
      <br/><br/>
     </body>
  </html>

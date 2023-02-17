@@ -21,21 +21,21 @@ if (empty($this_country)) {
    echo "No country provided <br><br>";
 
 } elseif (empty($this_year)){
-    echo "No country provided <br><br>";
+    echo "No year provided <br><br>";
 } else {
   //  echo $item."<br><br>";
 
    //Prepare a statement that we can later execute. The ?'s are placeholders for
    //parameters whose values we will set before we run the query.
    if ($stmt = $conn->prepare(
-    "WITH 
-    MostStreams AS (
-        SELECT songID, MAX(numStreams) as maxStreams
-        FROM SpotifyChart
-        WHERE YEAR(startDate) = ? and YEAR(endDate) = ? and country = ?)
-    
-    SELECT songName, MostStreams.songID, MostStreams.maxStreams
-    FROM Song JOIN MostStreams ON Song.songID = MostStreams.songID;")) {
+	"WITH 
+	    MostStreams AS (SELECT songID, numStreams 
+		FROM SpotifyChart 
+        	WHERE (YEAR(startDate)=? and YEAR(endDate)=?) and country=? 
+          	ORDER BY numStreams DESC LIMIT 1)
+
+	SELECT songName, numStreams
+	    FROM Song JOIN MostStreams ON Song.songID = MostStreams.songID;")) {
       //Attach the ? in prepared statements to variables (even if those variables
       //don't hold the values we want yet).  First parameter is a list of types of
       //the variables that follow: 's' means string, 'i' means integer, 'd' means
@@ -53,12 +53,13 @@ if (empty($this_country)) {
 	 
             //Create table to display results
             echo "<table border=\"1px solid black\">";
-            echo "<tr><th> Song Name </th> </tr>";
+            echo "<tr><th> Song Name </th> <th> Number of Streams </th> </tr>";
 
             //Report result set by visiting each row in it
             while ($row = $result->fetch_row()) {
                echo "<tr>";
                echo "<td>".$row[0]."</td>";
+		echo "<td>".$row[1]."</td>";
             //    echo "<td>".$row[1]."</td>";
                echo "</tr>";
             } 

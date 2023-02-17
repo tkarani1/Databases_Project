@@ -75,7 +75,6 @@ if (empty($this_song)) {
        echo "</table>";
 
     }      else {
-    //if ($result->num_rows == 0) {
        //Result contains no rows at all
        echo "No info found for this song and/or artist";
 
@@ -109,4 +108,5 @@ if (empty($this_song)) {
 $conn->close();
 ?>
 </body>
+
 

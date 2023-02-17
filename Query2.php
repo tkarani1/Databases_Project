@@ -15,18 +15,17 @@ echo "<h2>Percent of top charting songs that are explicit</h2>";
 //Prepare a statement that we can later execute. The ?'s are placeholders for
 //parameters whose values we will set before we run the query.
 if ($stmt = $conn->prepare(
-   "WITH 
-   TopSongs AS (SELECT DISTINCT songID as songID
-               FROM SpotifyChart),
-   
-   SongCount AS (SELECT count(songID) as num_songs
-               FROM TopSongs), 
-   
-   ExpCount AS (SELECT sum(explicit) as exp_count
-               FROM TopSongs JOIN Song ON TopSongs.songID = Song.songID)
-   
-   SELECT ROUND(100 * exp_count / num_songs,2) AS PercentExplicit
-           FROM SongCount JOIN ExpCount;")) {
+	"WITH  TopSongs AS (SELECT DISTINCT songID as songID            
+			FROM SpotifyChart), 
+
+	    SongCount AS (SELECT count(songID) as num_songs
+			 FROM TopSongs),   
+
+	    ExpCount AS (SELECT sum(explicit) as exp_count            
+		    FROM TopSongs JOIN Song ON TopSongs.songID = Song.songID)  
+
+	    SELECT ROUND(100 * exp_count/ num_songs,2) AS PercentExplicit        
+		FROM SongCount JOIN ExpCount;")) {
 
    //Run the actual query
    if ($stmt->execute()) {
@@ -43,8 +42,7 @@ if ($stmt = $conn->prepare(
          //Report result set by visiting each row in it
          while ($row = $result->fetch_row()) {
             echo "<tr>";
-            echo "<td>".$row[0]."</td>";
-            echo "<td>".$row[1]."</td>";
+            echo "<td>".$row[0]."%</td>";
             echo "</tr>";
          } 
       

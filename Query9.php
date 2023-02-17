@@ -9,13 +9,15 @@ include 'open.php';
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
+$dataVals = array();
+
 //Collect the posted value in a variable called $item
 
 echo "<h2>Happiness Score and Danceability in each Country</h2>";
 //Determine if any input was actually collected
 if ($stmt = $conn->prepare(
     "WITH
-    Top10SongPerCountry AS (SELECT country, YEAR(startDate) as year, songID 
+    Top10SongPerCountry AS (SELECT DISTINCT country, YEAR(startDate) as year, songID 
                         FROM SpotifyChart 
                         WHERE pos <= 25),
     TopSongDance AS (SELECT danceability, year, country, songName, Song.songID
@@ -43,16 +45,16 @@ if ($stmt = $conn->prepare(
            //Create table to display results
            echo "<table border=\"1px solid black\">";
            echo "<tr><th> Country </th> <th> Year </th> <th> Happiness Score </th> <th> Danceability </th></tr>";
-             foreach($result as $row){
+            while ($row = $result->fetch_row()) {
+                array_push($dataVals, array( "label"=> $row[2], "y"=> $row[3]));
+                echo "<tr>";
+                echo "<td>".$row[0]."</td>";
+                echo "<td>".$row[1]."</td>";
+                echo "<td>".$row[2]."</td>";
+                echo "<td>".$row[3]."</td>";
+                echo "</tr>";
+             }
 
-             // reset the attribute names array
-             $flist = $result->fetch_fields();
-                 echo "<tr>";
-                 foreach($flist as $fname){
-                     echo "<td>".$row[$fname->name]."</td>";
-             }
-                 echo "</tr>";
-             }
 
            echo "</table>";
 
@@ -90,4 +92,44 @@ if ($stmt = $conn->prepare(
 //Close the connection created in open.php
 $conn->close();
 ?>
+
+<html>
+<head>
+<script>
+window.onload = function () { 
+        var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title:{
+                        text: "Happiness Score vs. Danceability"
+                },
+      axisX:{
+            title: "Happiness Score",
+            interval: .2
+      },
+      axisY:{
+         interlacedColor: "rgba(1,77,101,.2)",
+         gridColor: "rgba(1,77,101,.1)",
+         title: "Danceability"
+      },
+                data: [{
+         type: "scatter",
+         name: "state",
+         axisYType: "primary",
+         color: "#014D65",
+                        dataPoints: <?php echo json_encode($dataVals, JSON_NUMERIC_CHECK); ?>
+                }]
+        });
+        chart.render(); 
+}
+</script>
+</head>
+<body>
+   <br><br>
+        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
+</html>
+
+
